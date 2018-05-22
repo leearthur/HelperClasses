@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectTransverser", "ObjectTransverser\ObjectTransverser.csproj", "{ADC5942F-EDD6-48A7-80F8-11142CF31EB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectTransverser.Tests", "ObjectTransverser.Tests\ObjectTransverser.Tests.csproj", "{24C1F6A4-3F9E-4577-B37B-D5898E173109}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{ADC5942F-EDD6-48A7-80F8-11142CF31EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADC5942F-EDD6-48A7-80F8-11142CF31EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADC5942F-EDD6-48A7-80F8-11142CF31EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24C1F6A4-3F9E-4577-B37B-D5898E173109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24C1F6A4-3F9E-4577-B37B-D5898E173109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24C1F6A4-3F9E-4577-B37B-D5898E173109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24C1F6A4-3F9E-4577-B37B-D5898E173109}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
