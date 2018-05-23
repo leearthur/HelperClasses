@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperClasses", "ObjectTransverser\HelperClasses.csproj", "{ADC5942F-EDD6-48A7-80F8-11142CF31EB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperClasses", "HelperClasses\HelperClasses.csproj", "{ADC5942F-EDD6-48A7-80F8-11142CF31EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperClasses.Tests", "ObjectTransverser.Tests\HelperClasses.Tests.csproj", "{24C1F6A4-3F9E-4577-B37B-D5898E173109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperClasses.Tests", "HelperClasses.Tests\HelperClasses.Tests.csproj", "{24C1F6A4-3F9E-4577-B37B-D5898E173109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
