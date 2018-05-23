@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CallbackStub.cs" />
+    <Compile Include="TestAttributes.cs" />
     <Compile Include="TestObjects.cs" />
     <Compile Include="TransverserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

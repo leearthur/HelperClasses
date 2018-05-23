@@ -41,16 +41,16 @@ namespace ObjectTransverser
                 return;
             }
 
-            if (obj is IEnumerable)
+            if (obj is IEnumerable enumerable)
             {
-                foreach(var child in (IEnumerable)obj)
+                foreach (var child in enumerable)
                 {
                     Transverse(child, prop);
                 }
                 return;
             }
 
-            if (obj.GetType().IsClass)
+            if (prop.PropertyType.IsClass || prop.PropertyType.IsValueType)
             {
                 foreach (var childProperties in obj.GetType().GetProperties())
                 {
@@ -59,10 +59,12 @@ namespace ObjectTransverser
             }
         }
 
-        private bool IsNotValid(object obj)
+        private static bool IsNotValid(object obj)
         {
-            return obj.GetType().IsPrimitive 
-                || obj is string;
+            return obj.GetType().IsPrimitive                                
+                || obj is string
+                || obj is DateTime
+                || obj is Delegate;
         }
     }
 }
