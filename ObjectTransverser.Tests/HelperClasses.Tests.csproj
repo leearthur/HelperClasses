@@ -9,8 +9,8 @@
     <ProjectGuid>{24C1F6A4-3F9E-4577-B37B-D5898E173109}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ObjectTransverser.Tests</RootNamespace>
-    <AssemblyName>ObjectTransverser.Tests</AssemblyName>
+    <RootNamespace>PropertyEnumerator.Tests</RootNamespace>
+    <AssemblyName>PropertyEnumerator.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -59,7 +59,7 @@
     <Compile Include="CallbackStub.cs" />
     <Compile Include="TestAttributes.cs" />
     <Compile Include="TestObjects.cs" />
-    <Compile Include="TransverserTests.cs" />
+    <Compile Include="PropertyEnumeratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,9 +72,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ObjectTransverser\ObjectTransverser.csproj">
+    <ProjectReference Include="..\ObjectTransverser\HelperClasses.csproj">
       <Project>{adc5942f-edd6-48a7-80f8-11142cf31eb3}</Project>
-      <Name>ObjectTransverser</Name>
+      <Name>HelperClasses</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

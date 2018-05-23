@@ -4,12 +4,12 @@ using System.Reflection;
 
 namespace ObjectTransverser
 {
-    public class Transverser
+    public class PropertyEnumerator
     {
         private readonly Func<object, PropertyInfo, bool> _predicate;
         private readonly Action<object> _callback;
 
-        public Transverser(Func<object, PropertyInfo, bool> predicate, Action<object> callback)
+        public PropertyEnumerator(Func<object, PropertyInfo, bool> predicate, Action<object> callback)
         {
             _predicate = predicate;
             _callback = callback;
