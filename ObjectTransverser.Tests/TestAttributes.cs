@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectTransverser.Tests
+namespace HelperClasses.Tests
 {
     public class TestPropertyAttribute : Attribute
     {

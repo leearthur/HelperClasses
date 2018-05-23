@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Reflection;
 
-namespace ObjectTransverser
+namespace HelperClasses
 {
     public class PropertyEnumerator
     {

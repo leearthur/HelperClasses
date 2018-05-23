@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Xunit;
 
-namespace ObjectTransverser.Tests
+namespace HelperClasses.Tests
 {
     public class PropertyEnumeratorTests
     {

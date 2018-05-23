@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ObjectTransverser.Tests
+namespace HelperClasses.Tests
 {
     public class ClassWithString
     {
