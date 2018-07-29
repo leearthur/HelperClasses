@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Xunit;
 
-namespace HelperClasses.Tests
+namespace HelperClasses.Tests.PropertyEnumerator
 {
     public class PropertyEnumeratorTests
     {
@@ -21,7 +21,7 @@ namespace HelperClasses.Tests
         public void Transverse_ClassWithString_SingleCallback()
         {
             // Arrange
-            var target = new PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithString
             {
                 Badger = "Test Badger",
@@ -39,7 +39,7 @@ namespace HelperClasses.Tests
         public void Transverse_ClassWithPrimitives_NoCallbacks()
         {
             // Arrange
-            var target = new PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithPrimitives
             {
                 IntProperty = 9,
@@ -59,7 +59,7 @@ namespace HelperClasses.Tests
         public void Transverse_ClassWithDate_SingleCallback()
         {
             // Arrange
-            var target = new PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var date = DateTime.Now;
             var principle = new ClassWithDate
             {
@@ -82,7 +82,7 @@ namespace HelperClasses.Tests
         public void Transverse_ClassWithObjectList_MultipleCallbacks()
         {
             // Arrange
-            var target = new PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithObjectList
             {
                 ObjectList = new List<ClassWithString>
@@ -104,7 +104,7 @@ namespace HelperClasses.Tests
         {
             // Arrange
             const int count = 100000;
-            var target = new PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithObjectList
             {
                 ObjectList = new List<ClassWithString>()
@@ -126,7 +126,7 @@ namespace HelperClasses.Tests
         public void Transverse_ClassWithStringList_NoCallbacks()
         {
             // Arrange
-            var target = new PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithStringList
             {
                 StringList = new List<string>
@@ -147,7 +147,7 @@ namespace HelperClasses.Tests
         public void Transverse_ClassWithStringList_MultipleCallbacks()
         {
             // Arrange
-            var target = new PropertyEnumerator((obj, prop) => prop.Name == "StringList" && obj.ToString() == "Badger 3", _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator((obj, prop) => prop.Name == "StringList" && obj.ToString() == "Badger 3", _callbackStub.Callback);
             var principle = new ClassWithStringList
             {
                 StringList = new List<string>
@@ -176,7 +176,7 @@ namespace HelperClasses.Tests
         public void Transverse_ClassWithSingleItemDictionary_SingleCallback()
         {
             // Arrange
-            var target = new PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithDictionary
             {
                 DictionaryProperty = new Dictionary<string, ClassWithString>
@@ -198,7 +198,7 @@ namespace HelperClasses.Tests
         public void Transverse_ClassWithKeyValuePairs_SingleCallback()
         {
             // Arrange
-            var target = new PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithKeyValuePair
             {
                 KeyValuePair = new KeyValuePair<string, ClassWithString>("KeyValue_Key1", new ClassWithString { Badger = "Another Inner Badger" })
@@ -219,7 +219,7 @@ namespace HelperClasses.Tests
         public void Transverse_ClassWithNestedObjects_MultipleCallback()
         {
             // Arrange
-            var target = new PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithNestedObjects()
             {
                 Badger = "Top Level Badger",
@@ -247,7 +247,7 @@ namespace HelperClasses.Tests
         public void Transverse_SearchForSingleAttribute_SingleCallback()
         {
             // Arrange
-            var target = new PropertyEnumerator(AttributePredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(AttributePredicate, _callbackStub.Callback);
             var principle = new ClassWithString
             {
                 Badger = "Test Badger",
@@ -266,7 +266,7 @@ namespace HelperClasses.Tests
         {
             // Arrange
             const int count = 100000;
-            var target = new PropertyEnumerator(AttributePredicate, _callbackStub.Callback);
+            var target = new HelperClasses.PropertyEnumerator(AttributePredicate, _callbackStub.Callback);
             var principle = new ClassWithObjectList
             {
                 ObjectList = new List<ClassWithString>()

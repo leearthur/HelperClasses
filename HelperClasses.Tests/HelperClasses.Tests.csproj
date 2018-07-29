@@ -56,10 +56,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CallbackStub.cs" />
-    <Compile Include="TestAttributes.cs" />
-    <Compile Include="TestObjects.cs" />
-    <Compile Include="PropertyEnumeratorTests.cs" />
+    <Compile Include="PropertyEnumerator\CallbackStub.cs" />
+    <Compile Include="PropertyEnumerator\TestAttributes.cs" />
+    <Compile Include="PropertyEnumerator\TestObjects.cs" />
+    <Compile Include="PropertyEnumerator\PropertyEnumeratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

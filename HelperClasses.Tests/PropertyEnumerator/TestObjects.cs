@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HelperClasses.Tests
+namespace HelperClasses.Tests.PropertyEnumerator
 {
     public class ClassWithString
     {
