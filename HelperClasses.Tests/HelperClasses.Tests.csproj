@@ -56,6 +56,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObjectMapper\ObjectMapperTests.cs" />
+    <Compile Include="ObjectMapper\TestClasses.cs" />
     <Compile Include="PropertyEnumerator\CallbackStub.cs" />
     <Compile Include="PropertyEnumerator\TestAttributes.cs" />
     <Compile Include="PropertyEnumerator\TestObjects.cs" />
