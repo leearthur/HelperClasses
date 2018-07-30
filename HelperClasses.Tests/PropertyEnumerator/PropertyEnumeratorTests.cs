@@ -18,7 +18,20 @@ namespace HelperClasses.Tests.PropertyEnumerator
         #region Simple Objects
 
         [Fact]
-        public void Transverse_ClassWithString_SingleCallback()
+        public void Enumerate_NullObject_NullIsReturned()
+        {
+            // Arrange
+            var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
+
+            // Act
+            target.Enumerate(null);
+
+            // Assert
+            Assert.Equal(0, _callbackStub.Count);
+        }
+
+        [Fact]
+        public void Enumerate_ClassWithString_SingleCallback()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
@@ -29,14 +42,16 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
-            Assert.Equal("Test Badger", _callbackStub.CallbackObjects.Single().ToString());
+            var callback = _callbackStub.CallbackObjects.Single();
+            Assert.Equal("Test Badger", callback.Object.ToString());
+            Assert.Equal("String", callback.PropertyInfo.PropertyType.Name);
         }
 
         [Fact]
-        public void Transverse_ClassWithPrimitives_NoCallbacks()
+        public void Enumerate_ClassWithPrimitives_NoCallbacks()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
@@ -49,14 +64,14 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
             Assert.Equal(0, _callbackStub.Count);
         }
 
         [Fact]
-        public void Transverse_ClassWithDate_SingleCallback()
+        public void Enumerate_ClassWithDate_SingleCallback()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
@@ -68,10 +83,12 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
-            Assert.Equal(date, _callbackStub.CallbackObjects.Single());
+            var callback = _callbackStub.CallbackObjects.Single();
+            Assert.Equal(date, callback.Object);
+            Assert.Equal("DateTime", callback.PropertyInfo.PropertyType.Name);
         }
 
         #endregion
@@ -79,7 +96,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
         #region Lists/Arrays
 
         [Fact]
-        public void Transverse_ClassWithObjectList_MultipleCallbacks()
+        public void Enumerate_ClassWithObjectList_MultipleCallbacks()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
@@ -93,14 +110,14 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
             Assert.Equal(2, _callbackStub.Count);
         }
 
         [Fact]
-        public void Transverse_ClassWithLargeArray_MultipleCallbacks()
+        public void Enumerate_ClassWithLargeArray_MultipleCallbacks()
         {
             // Arrange
             const int count = 100000;
@@ -116,14 +133,14 @@ namespace HelperClasses.Tests.PropertyEnumerator
             }
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
             Assert.Equal(count, _callbackStub.Count);
         }
 
         [Fact]
-        public void Transverse_ClassWithStringList_NoCallbacks()
+        public void Enumerate_ClassWithStringList_NoCallbacks()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
@@ -137,14 +154,14 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
             Assert.Equal(0, _callbackStub.Count);
         }
 
         [Fact]
-        public void Transverse_ClassWithStringList_MultipleCallbacks()
+        public void Enumerate_ClassWithStringList_MultipleCallbacks()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator((obj, prop) => prop.Name == "StringList" && obj.ToString() == "Badger 3", _callbackStub.Callback);
@@ -161,7 +178,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
             Assert.Equal(1, _callbackStub.Count);
@@ -173,7 +190,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
         #region Dictionary/Hash Tables
 
         [Fact]
-        public void Transverse_ClassWithSingleItemDictionary_SingleCallback()
+        public void Enumerate_ClassWithSingleItemDictionary_SingleCallback()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
@@ -187,15 +204,15 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
             Assert.Equal(2, _callbackStub.Count);
-            Assert.Equal("Inside Badger 1", _callbackStub.CallbackObjects.First().ToString());
+            Assert.Equal("Inside Badger 1", _callbackStub.CallbackObjects.First().Object.ToString());
         }
 
         [Fact]
-        public void Transverse_ClassWithKeyValuePairs_SingleCallback()
+        public void Enumerate_ClassWithKeyValuePairs_SingleCallback()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
@@ -205,10 +222,12 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
-            Assert.Equal("Another Inner Badger", _callbackStub.CallbackObjects.Single().ToString());
+            var callback = _callbackStub.CallbackObjects.Single();
+            Assert.Equal("Another Inner Badger", callback.Object.ToString());
+            Assert.Equal("String", callback.PropertyInfo.PropertyType.Name);
         }
 
         #endregion
@@ -216,7 +235,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
         #region Nested Objects
 
         [Fact]
-        public void Transverse_ClassWithNestedObjects_MultipleCallback()
+        public void Enumerate_ClassWithNestedObjects_MultipleCallback()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
@@ -233,10 +252,34 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
             Assert.Equal(3, _callbackStub.Count);
+        }
+
+        [Fact]
+        public void Enumerate_ClassWithSingleNestedObject_SingleCallback()
+        {
+            // Arrange
+            bool callbackFunction(object obj, PropertyInfo prop)
+            {
+                return prop.PropertyType.Name.Equals("Foo");
+            }
+
+            var target = new HelperClasses.PropertyEnumerator(callbackFunction, _callbackStub.Callback);
+            var principle = new ClassWithNestedObjects()
+            {
+                Object = CreateFoo("Badger String", "Sausage String")
+            };
+
+            // Act
+            target.Enumerate(principle);
+
+            // Assert
+            var callback = _callbackStub.CallbackObjects.Single();
+            Assert.Same(principle.Object, callback.Object);
+            Assert.Equal(typeof(Foo), callback.PropertyInfo.PropertyType);
         }
 
         #endregion
@@ -244,7 +287,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
         #region Attribute Tests
 
         [Fact]
-        public void Transverse_SearchForSingleAttribute_SingleCallback()
+        public void Enumerate_SearchForSingleAttribute_SingleCallback()
         {
             // Arrange
             var target = new HelperClasses.PropertyEnumerator(AttributePredicate, _callbackStub.Callback);
@@ -255,14 +298,14 @@ namespace HelperClasses.Tests.PropertyEnumerator
             };
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
-            Assert.Equal("Test Sausage", _callbackStub.CallbackObjects.Single().ToString());
+            Assert.Equal("Test Sausage", _callbackStub.CallbackObjects.Single().Object.ToString());
         }
 
         [Fact]
-        public void Transverse_AttributesWithLargeArray_MultipleCallbacks()
+        public void Enumerate_AttributesWithLargeArray_MultipleCallbacks()
         {
             // Arrange
             const int count = 100000;
@@ -278,7 +321,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
             }
 
             // Act
-            target.Transverse(principle);
+            target.Enumerate(principle);
 
             // Assert
             Assert.Equal(count, _callbackStub.Count);

@@ -53,6 +53,8 @@ namespace HelperClasses.Tests.PropertyEnumerator
         public string Badger { get; set; }
 
         public List<Foo> ObjectList { get; set; }
+
+        public Foo Object { get; set; }
     }
 
     public class Foo
