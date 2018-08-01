@@ -7,8 +7,8 @@
     <ProjectGuid>{ADC5942F-EDD6-48A7-80F8-11142CF31EB3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HelperCalsses</RootNamespace>
-    <AssemblyName>HelperCalsses</AssemblyName>
+    <RootNamespace>HelperClasses</RootNamespace>
+    <AssemblyName>HelperClasses</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="PropertyEnumerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
