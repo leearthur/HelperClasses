@@ -2,7 +2,7 @@
 using System.Linq;
 using Xunit;
 
-namespace PropertyEnumerator.Tests.ObjectMapper
+namespace HelperClasses.Tests.ObjectMapper
 {
     public class ObjectMapperTests
     {

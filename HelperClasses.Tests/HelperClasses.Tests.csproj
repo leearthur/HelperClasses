@@ -8,8 +8,8 @@
     <ProjectGuid>{24C1F6A4-3F9E-4577-B37B-D5898E173109}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PropertyEnumerator.Tests</RootNamespace>
-    <AssemblyName>PropertyEnumerator.Tests</AssemblyName>
+    <RootNamespace>HelperClasses.Tests</RootNamespace>
+    <AssemblyName>HelperClasses.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -81,6 +81,7 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
