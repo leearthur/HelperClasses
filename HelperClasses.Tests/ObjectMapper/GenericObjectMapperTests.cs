@@ -167,11 +167,7 @@ namespace HelperClasses.Tests.ObjectMapper
             var target = new ObjectMapper<BasicDestinationClass>();
             BasicDestinationClass map(BasicSourceClass obj)
             {
-                return new BasicDestinationClass
-                {
-                    Id = obj.Identifier,
-                    Name = obj.FullName
-                };
+                return new BasicDestinationClass();
             }
 
             // Act
@@ -192,11 +188,7 @@ namespace HelperClasses.Tests.ObjectMapper
             var target = new ObjectMapper<BasicDestinationClass>();
             target.AddMap<BasicSourceClass>(obj =>
             {
-                return new BasicDestinationClass
-                {
-                    Id = obj.Identifier,
-                    Name = obj.FullName
-                };
+                return new BasicDestinationClass();
             });
 
             // Act

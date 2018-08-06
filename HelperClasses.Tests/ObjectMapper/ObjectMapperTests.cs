@@ -36,15 +36,36 @@ namespace HelperClasses.Tests.ObjectMapper
         }
 
         [Fact]
-        public void MapObject_InvalidMapRequest_ExceptionIsThrown()
+        public void MapObject_InvaliSourcedMapRequest_ExceptionIsThrown()
         {
             // Arrange
             var target = new HelperClasses.ObjectMapper();
+            target.AddMap<string, BasicDestinationClass>(src => 
+                new BasicDestinationClass()
+            );
+
             var source = new BasicSourceClass
             {
                 Identifier = 12,
                 FullName = "Badger"
             };
+
+            // Act
+            var ex = Assert.Throws<InvalidMapRequest<BasicDestinationClass>>(() => target.Map<BasicDestinationClass>(source));
+
+            // Assert
+            Assert.Equal(source.GetType(), ex.SourceType);
+            Assert.Equal(typeof(BasicDestinationClass), ex.DestinationType);
+            Assert.Same(source, ex.SourceObject);
+
+        }
+
+        [Fact]
+        public void MapObject_InvaliDestinationMapRequest_ExceptionIsThrown()
+        {
+            // Arrange
+            var target = new HelperClasses.ObjectMapper();
+            var source = new BasicSourceClass();
 
             // Act
             var ex = Assert.Throws<InvalidMapRequest<BasicDestinationClass>>(() => target.Map<BasicDestinationClass>(source));
@@ -167,11 +188,7 @@ namespace HelperClasses.Tests.ObjectMapper
             var target = new HelperClasses.ObjectMapper();
             BasicDestinationClass map(BasicSourceClass obj)
             {
-                return new BasicDestinationClass
-                {
-                    Id = obj.Identifier,
-                    Name = obj.FullName
-                };
+                return new BasicDestinationClass();
             }
 
             // Act
@@ -191,13 +208,8 @@ namespace HelperClasses.Tests.ObjectMapper
             // Arrange
             var target = new HelperClasses.ObjectMapper();
             target.AddMap<BasicSourceClass, BasicDestinationClass>(obj =>
-            {
-                return new BasicDestinationClass
-                {
-                    Id = obj.Identifier,
-                    Name = obj.FullName
-                };
-            });
+                new BasicDestinationClass()
+            );
 
             // Act
             var result = target.Exists<BasicDestinationClass>(typeof(BasicSourceClass));

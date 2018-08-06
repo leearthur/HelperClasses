@@ -103,7 +103,7 @@ namespace HelperClasses.Tests.Extensions
         public void ForEach_MassiveItemArray_ActionCalledALot()
         {
             // Arrange
-            const int count = 10000000;
+            const int count = 1000000;
             var stopwatch = new Stopwatch();
             var target = new List<TestObject>();
             for (var i = 1; i <= count; i++)
