@@ -4,7 +4,7 @@ using Xunit;
 
 namespace HelperClasses.Tests.ObjectMapper
 {
-    public class GenericObjectMapperTests
+    public class ObjectMapperTests
     {
         #region Map Single Objects
 
@@ -12,8 +12,8 @@ namespace HelperClasses.Tests.ObjectMapper
         public void MapObject_ValidMapExists_ObjectIsReturned()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
-            target.AddMap<BasicSourceClass>(obj =>
+            var target = new HelperClasses.ObjectMapper();
+            target.AddMap<BasicSourceClass, BasicDestinationClass>(obj =>
             {
                 return new BasicDestinationClass
                 {
@@ -29,7 +29,7 @@ namespace HelperClasses.Tests.ObjectMapper
             };
 
             // Act 
-            var result = target.Map(source);
+            var result = target.Map<BasicDestinationClass>(source);
 
             // Assert
             HelperMethods.AssertBasicMapping(source, result);
@@ -39,7 +39,7 @@ namespace HelperClasses.Tests.ObjectMapper
         public void MapObject_InvalidMapRequest_ExceptionIsThrown()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
+            var target = new HelperClasses.ObjectMapper();
             var source = new BasicSourceClass
             {
                 Identifier = 12,
@@ -47,7 +47,7 @@ namespace HelperClasses.Tests.ObjectMapper
             };
 
             // Act
-            var ex = Assert.Throws<InvalidMapRequest<BasicDestinationClass>>(() => target.Map(source));
+            var ex = Assert.Throws<InvalidMapRequest<BasicDestinationClass>>(() => target.Map<BasicDestinationClass>(source));
 
             // Assert
             Assert.Equal(source.GetType(), ex.SourceType);
@@ -60,10 +60,10 @@ namespace HelperClasses.Tests.ObjectMapper
         public void MapObject_NullInput_NullIsReturned()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
+            var target = new HelperClasses.ObjectMapper();
 
             // Act
-            var result = target.Map((string)null);
+            var result = target.Map<BasicDestinationClass>((string)null);
 
             // Assert
             Assert.Null(result);
@@ -73,8 +73,8 @@ namespace HelperClasses.Tests.ObjectMapper
         public void MapObject_SimpleTypeOutput_ObjectIsMapped()
         {
             // Arrange
-            var target = new ObjectMapper<string>();
-            target.AddMap<BasicSourceClass>(obj =>
+            var target = new HelperClasses.ObjectMapper();
+            target.AddMap<BasicSourceClass, string>(obj =>
             {
                 return $"[{obj.FullName}/{obj.Identifier}]";
             });
@@ -86,7 +86,7 @@ namespace HelperClasses.Tests.ObjectMapper
             };
 
             // Act 
-            var result = target.Map(source);
+            var result = target.Map<string>(source);
 
             // Assert
             Assert.Equal("[Sausage/64]", result);
@@ -100,8 +100,8 @@ namespace HelperClasses.Tests.ObjectMapper
         public void MapArray_MulpleObjects_MultipleMaped()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
-            target.AddMap<BasicSourceClass>(obj =>
+            var target = new HelperClasses.ObjectMapper();
+            target.AddMap<BasicSourceClass, BasicDestinationClass>(obj =>
             {
                 return new BasicDestinationClass
                 {
@@ -117,7 +117,7 @@ namespace HelperClasses.Tests.ObjectMapper
             };
 
             // Act
-            var result = target.Map(sources).ToArray();
+            var result = target.Map<BasicDestinationClass>(sources).ToArray();
 
             // Assert
             Assert.Equal(3, result.Length);
@@ -131,15 +131,15 @@ namespace HelperClasses.Tests.ObjectMapper
         public void MapArray_NullArrayPassedIn_NullEnumerableReturned()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
+            var target = new HelperClasses.ObjectMapper();
             BasicSourceClass[] sources = null;
 
             // Act
-            var result = target.Map(sources);
+            var result = target.Map<BasicDestinationClass>(sources);
 
             // Assert
             Assert.NotNull(result);
-            Assert.False(result.Any());        
+            Assert.False(result.Any());
         }
 
         #endregion
@@ -150,10 +150,10 @@ namespace HelperClasses.Tests.ObjectMapper
         public void AddMap_NullMap_ExceptionThrown()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
+            var target = new HelperClasses.ObjectMapper();
 
             // Act
-            var result = Assert.Throws<ArgumentNullException>(() => target.AddMap<BasicSourceClass>(null));
+            var result = Assert.Throws<ArgumentNullException>(() => target.AddMap<BasicSourceClass, BasicDestinationClass>(null));
 
             // Assert
             Assert.Equal("map", result.ParamName);
@@ -164,7 +164,7 @@ namespace HelperClasses.Tests.ObjectMapper
         public void AddMap_DuplicateMap_ExceptionThrown()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
+            var target = new HelperClasses.ObjectMapper();
             BasicDestinationClass map(BasicSourceClass obj)
             {
                 return new BasicDestinationClass
@@ -175,10 +175,10 @@ namespace HelperClasses.Tests.ObjectMapper
             }
 
             // Act
-            target.AddMap<BasicSourceClass>(map);
+            target.AddMap<BasicSourceClass, BasicDestinationClass>(map);
 
             // Assert
-            Assert.Throws<ArgumentException>(() => target.AddMap<BasicSourceClass>(map));
+            Assert.Throws<ArgumentException>(() => target.AddMap<BasicSourceClass, BasicDestinationClass>(map));
         }
 
         #endregion
@@ -189,8 +189,8 @@ namespace HelperClasses.Tests.ObjectMapper
         public void Exists_TypeExists_ReturnsTrue()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
-            target.AddMap<BasicSourceClass>(obj =>
+            var target = new HelperClasses.ObjectMapper();
+            target.AddMap<BasicSourceClass, BasicDestinationClass>(obj =>
             {
                 return new BasicDestinationClass
                 {
@@ -200,7 +200,7 @@ namespace HelperClasses.Tests.ObjectMapper
             });
 
             // Act
-            var result = target.Exists(typeof(BasicSourceClass));
+            var result = target.Exists<BasicDestinationClass>(typeof(BasicSourceClass));
 
             // Assert
             Assert.True(result);
@@ -210,10 +210,10 @@ namespace HelperClasses.Tests.ObjectMapper
         public void Exists_TypeDoesNotExists_ReturnsFalse()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
+            var target = new HelperClasses.ObjectMapper();
 
             // Act
-            var result = target.Exists(typeof(BasicSourceClass));
+            var result = target.Exists<BasicDestinationClass>(typeof(BasicSourceClass));
 
             // Assert
             Assert.False(result);
@@ -223,10 +223,10 @@ namespace HelperClasses.Tests.ObjectMapper
         public void Exists_TypeIsNull_ExceptionThrown()
         {
             // Arrange
-            var target = new ObjectMapper<BasicDestinationClass>();
+            var target = new HelperClasses.ObjectMapper();
 
             // Act
-            var result = Assert.Throws<ArgumentNullException>(() => target.Exists(null));
+            var result = Assert.Throws<ArgumentNullException>(() => target.Exists<BasicDestinationClass>(null));
 
             // Assert
             Assert.Equal("sourceType", result.ParamName);

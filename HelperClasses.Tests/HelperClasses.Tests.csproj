@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
-    <Compile Include="ObjectMapper\ObjectMapperTests.cs" />
+    <Compile Include="ObjectMapper\GenericObjectMapperTests.cs" />
     <Compile Include="ObjectMapper\TestClasses.cs" />
     <Compile Include="PropertyEnumerator\CallbackStub.cs" />
     <Compile Include="PropertyEnumerator\TestAttributes.cs" />
