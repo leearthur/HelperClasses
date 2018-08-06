@@ -4,7 +4,7 @@ using Xunit;
 
 namespace HelperClasses.Tests.ObjectMapper
 {
-    public class ObjectMapperTests
+    public class GenericObjectMapperTests
     {
         #region Map Single Objects
 
