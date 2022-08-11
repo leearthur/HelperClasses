@@ -17,5 +17,15 @@ namespace HelperClasses
                 action.Invoke(obj);
             }
         }
+
+        public static bool None<T>(this IEnumerable<T> input, Func<T, bool> func)
+        {
+            if (input is null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            return false;
+        }
     }
 }
