@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace HelperClasses
+﻿namespace HelperClasses
 {
     public class ObjectMapper
     {
-        private readonly Dictionary<Type, object> _maps = new Dictionary<Type, object>();
+        private readonly Dictionary<Type, object> _maps = new();
 
         public ObjectMapper AddMap<TSource, TDestination>(Func<TSource, TDestination> map)
         {
-            if (map == null)
-            {
-                throw new ArgumentNullException(nameof(map));
-            }
+            _ = map ?? throw new ArgumentNullException(nameof(map));
 
             if (Exists<TDestination>(typeof(TSource)))
             {
@@ -28,10 +21,7 @@ namespace HelperClasses
 
         public bool Exists<TDestinationType>(Type sourceType)
         {
-            if (sourceType == null)
-            {
-                throw new ArgumentNullException(nameof(sourceType));
-            }
+            _ = sourceType ?? throw new ArgumentNullException(nameof(sourceType));
 
             var mapper = GetMapper<TDestinationType>();
             if (mapper == null)
@@ -39,13 +29,13 @@ namespace HelperClasses
                 return false;
             }
             return mapper.Exists(sourceType);
-        }        
+        }
 
-        public TDestination Map<TDestination>(object source)
+        public TDestination? Map<TDestination>(object? source)
         {
             if (source == null)
             {
-                return default(TDestination);
+                return default;
             }
 
             var mapper = GetMapper<TDestination>();
@@ -61,39 +51,30 @@ namespace HelperClasses
         {
             if (sources == null)
             {
-                return new TDestination[0];
+                return Array.Empty<TDestination>();
             }
 
             var mapper = GetMapper<TDestination>();
-            if (mapper == null)
-            {
-                throw new InvalidMapRequest<TDestination>(sources);
-            }
+            _ = mapper ?? throw new InvalidMapRequest<TDestination>(sources);
 
             return mapper.Map(sources);
         }
 
-        public ObjectMapper<TDestination> GetMapper<TDestination>()
+        public ObjectMapper<TDestination>? GetMapper<TDestination>()
         {
-            if (!_maps.ContainsKey(typeof(TDestination)))
-            {
-                return null;
-            }
-
-            return (ObjectMapper<TDestination>)_maps[typeof(TDestination)];
+            return _maps.ContainsKey(typeof(TDestination))
+                ? (ObjectMapper<TDestination>)_maps[typeof(TDestination)]
+                : default;
         }
     }
 
     public class ObjectMapper<TDestination>
     {
-        private readonly Dictionary<Type, Delegate> _maps = new Dictionary<Type, Delegate>();
+        private readonly Dictionary<Type, Delegate> _maps = new();
 
         public ObjectMapper<TDestination> AddMap<TSource>(Func<TSource, TDestination> map)
         {
-            if (map == null)
-            {
-                throw new ArgumentNullException(nameof(map));
-            }
+            _ = map ?? throw new ArgumentNullException(nameof(map));
 
             if (Exists(typeof(TSource)))
             {
@@ -101,7 +82,6 @@ namespace HelperClasses
             }
 
             _maps.Add(typeof(TSource), map);
-
             return this;
         }
 
@@ -115,11 +95,11 @@ namespace HelperClasses
             return _maps.ContainsKey(sourceType);
         }
 
-        public TDestination Map(object source)
+        public TDestination? Map(object? source)
         {
             if (source == null)
             {
-                return default(TDestination);
+                return default;
             }
 
             var sourceType = source.GetType();
@@ -131,14 +111,11 @@ namespace HelperClasses
             throw new InvalidMapRequest<TDestination>(source);
         }
 
-        public IEnumerable<TDestination> Map(IEnumerable<object> sources)
+        public IEnumerable<TDestination> Map(IEnumerable<object>? sources)
         {
-            if (sources == null)
-            {
-                return new TDestination[0];
-            }
-
-            return sources.Select(Map);
+            return sources == null
+                ? Array.Empty<TDestination>()
+                : sources.Select(Map);
         }
     }
 

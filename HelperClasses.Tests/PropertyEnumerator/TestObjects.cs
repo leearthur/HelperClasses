@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace HelperClasses.Tests.PropertyEnumerator
+﻿namespace HelperClasses.Tests.PropertyEnumerator
 {
     public class ClassWithString
     {
-        public string Badger { get; set; }
+        public string? Badger { get; set; }
 
         [TestProperty]
-        public string Sausage { get; set; }
+        public string? Sausage { get; set; }
     }
 
     public class ClassWithDate
@@ -19,12 +16,12 @@ namespace HelperClasses.Tests.PropertyEnumerator
 
     public class ClassWithObjectList
     {
-        public List<ClassWithString> ObjectList { get; set; }
+        public List<ClassWithString>? ObjectList { get; set; }
     }
 
     public class ClassWithStringList
     {
-        public List<string> StringList { get; set; }
+        public List<string>? StringList { get; set; }
     }
 
     public class ClassWithPrimitives
@@ -40,7 +37,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
 
     public class ClassWithDictionary
     {
-        public Dictionary<string, ClassWithString> DictionaryProperty { get; set; }
+        public Dictionary<string, ClassWithString>? DictionaryProperty { get; set; }
     }
 
     public class ClassWithKeyValuePair
@@ -50,24 +47,24 @@ namespace HelperClasses.Tests.PropertyEnumerator
 
     public class ClassWithNestedObjects
     {
-        public string Badger { get; set; }
+        public string? Badger { get; set; }
 
-        public List<Foo> ObjectList { get; set; }
+        public List<Foo>? ObjectList { get; set; }
 
-        public Foo Object { get; set; }
+        public Foo? Object { get; set; }
     }
 
     public class Foo
     {
-        public Bar BarProperty { get; set; }
+        public Bar? BarProperty { get; set; }
 
-        public Func<bool> FuncProperty { get; set; }
+        public Func<bool>? FuncProperty { get; set; }
 
-        public Action<object> ActionProperty { get; set; }
+        public Action<object>? ActionProperty { get; set; }
     }
 
     public class Bar
     {
-        public ClassWithObjectList ObjectList { get; set; }
+        public ClassWithObjectList? ObjectList { get; set; }
     }
 }

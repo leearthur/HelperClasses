@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using Xunit;
 
 namespace HelperClasses.Tests.Extensions
@@ -16,23 +13,10 @@ namespace HelperClasses.Tests.Extensions
         }
 
         [Fact]
-        public void ForEach_NullArray_ActionNotCalled()
-        {
-            // Arrange
-            IEnumerable<TestObject> target = null;
-
-            // Act
-            target.ForEach(Action);
-
-            // Assert
-            Assert.Empty(_actionCalls);
-        }
-
-        [Fact]
         public void ForEach_EmptyArray_ActionNotCalled()
         {
             // Arrange
-            var target = (new TestObject[0]).Select(obj => obj);
+            var target = (Array.Empty<TestObject>()).Select(obj => obj);
 
             // Act
             target.ForEach(Action);
@@ -49,7 +33,7 @@ namespace HelperClasses.Tests.Extensions
             {
                 new TestObject(1)
             }).Select(obj => obj);
-            Action<TestObject> action = null;
+            Action<TestObject>? action = null;
 
             // Act
             target.ForEach(action);
@@ -113,7 +97,7 @@ namespace HelperClasses.Tests.Extensions
 
             // Act
             stopwatch.Start();
-            ((IEnumerable<TestObject>)target).ForEach(Action);
+            (target as IEnumerable<TestObject>).ForEach(Action);
             stopwatch.Stop();
 
             // Assert

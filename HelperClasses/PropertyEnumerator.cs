@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Reflection;
 
 namespace HelperClasses
@@ -15,7 +14,7 @@ namespace HelperClasses
             _callback = callback;
         }
 
-        public void Enumerate(object obj)
+        public void Enumerate(object? obj)
         {
             if (obj == null)
             {
@@ -28,7 +27,7 @@ namespace HelperClasses
             }
         }
 
-        public void Enumerate(object obj, PropertyInfo prop)
+        public void Enumerate(object? obj, PropertyInfo prop)
         {
             if (obj == null)
             {
