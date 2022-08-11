@@ -4,7 +4,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
 {
     public class CallbackStub
     {
-        public List<CallbackInstance> CallbackObjects { get; } = new List<CallbackInstance>();
+        public List<CallbackInstance> CallbackObjects { get; } = new();
 
         public int Count => CallbackObjects.Count;
 

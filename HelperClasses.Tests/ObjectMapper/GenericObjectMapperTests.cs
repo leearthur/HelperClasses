@@ -53,15 +53,7 @@ namespace HelperClasses.Tests.ObjectMapper
             Assert.Same(source, ex.SourceObject);
 
         }
-
-        [Fact]
-        public void MapObject_NullInput_NullIsReturned()
-        {
-            var result = _target.Map((string)null);
-
-            Assert.Null(result);
-        }
-
+       
         [Fact]
         public void MapObject_SimpleTypeOutput_ObjectIsMapped()
         {
@@ -140,7 +132,7 @@ namespace HelperClasses.Tests.ObjectMapper
         [Fact]
         public void AddMap_DuplicateMap_ExceptionThrown()
         {
-            BasicDestinationClass map(BasicSourceClass obj)
+            static BasicDestinationClass map(BasicSourceClass obj)
             {
                 return new BasicDestinationClass();
             }

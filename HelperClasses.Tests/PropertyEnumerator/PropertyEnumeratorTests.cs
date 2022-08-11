@@ -105,7 +105,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithObjectList
             {
-                ObjectList = new List<ClassWithString>()
+                ObjectList = new()
             };
 
             for (var i = 0; i < count; i++)
@@ -124,7 +124,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithStringList
             {
-                StringList = new List<string>
+                StringList = new()
                 {
                     "Badger 1",
                     "Badger 2"
@@ -142,7 +142,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
             var target = new HelperClasses.PropertyEnumerator((obj, prop) => prop.Name == "StringList" && obj.ToString() == "Badger 3", _callbackStub.Callback);
             var principle = new ClassWithStringList
             {
-                StringList = new List<string>
+                StringList = new()
                 {
                     "Badger 1",
                     "Badger 2",
@@ -155,7 +155,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
             target.Enumerate(principle);
 
             Assert.Equal(1, _callbackStub.Count);
-            Assert.All(_callbackStub.CallbackObjects, o => o.ToString().StartsWith("Badger "));
+            Assert.All(_callbackStub.CallbackObjects, o => o?.ToString()?.StartsWith("Badger "));
         }
 
         #endregion
@@ -168,7 +168,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
             var target = new HelperClasses.PropertyEnumerator(DefaultPredicate, _callbackStub.Callback);
             var principle = new ClassWithDictionary
             {
-                DictionaryProperty = new Dictionary<string, ClassWithString>
+                DictionaryProperty = new()
                 {
                     {"Key1", new ClassWithString {Badger = "Inside Badger 1"}},
                     {"Key2", new ClassWithString {Badger = "Badger Value 2"}}
@@ -208,7 +208,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
             var principle = new ClassWithNestedObjects()
             {
                 Badger = "Top Level Badger",
-                ObjectList = new List<Foo>
+                ObjectList = new()
                 {
                     CreateFoo("Inner Badger 1", null),
                     CreateFoo(null, "Inner Sausage 1"),
@@ -269,7 +269,7 @@ namespace HelperClasses.Tests.PropertyEnumerator
             var target = new HelperClasses.PropertyEnumerator(AttributePredicate, _callbackStub.Callback);
             var principle = new ClassWithObjectList
             {
-                ObjectList = new List<ClassWithString>()
+                ObjectList = new()
             };
 
             for (var i = 0; i < count; i++)
@@ -286,25 +286,19 @@ namespace HelperClasses.Tests.PropertyEnumerator
 
         #region Helper Methods
 
-        private static bool DefaultPredicate(object obj, PropertyInfo prop)
-        {
-            return prop.Name == "Badger";
-        }
+        private static bool DefaultPredicate(object obj, PropertyInfo prop) => prop.Name == "Badger";
 
-        public static bool AttributePredicate(object obj, PropertyInfo prop)
-        {
-            return prop.CustomAttributes.Any(ca => ca.AttributeType.Name == nameof(TestPropertyAttribute));
-        }
+        public static bool AttributePredicate(object obj, PropertyInfo prop) => prop.CustomAttributes.Any(ca => ca.AttributeType.Name == nameof(TestPropertyAttribute));
 
         private static Foo CreateFoo(string? badger, string? sausage)
         {
             return new Foo
             {
-                BarProperty = new Bar
+                BarProperty = new()
                 {
-                    ObjectList = new ClassWithObjectList
+                    ObjectList = new()
                     {
-                        ObjectList = new List<ClassWithString>
+                        ObjectList = new()
                         {
                             new ClassWithString {Badger = badger, Sausage = sausage}
                         }
